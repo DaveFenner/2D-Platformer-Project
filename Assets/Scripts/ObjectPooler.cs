@@ -1,44 +1,58 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class ObjectPooler : MonoBehaviour
-{
 
-    public GameObject[] pooledObject;
-    public int pooledAmount;
-    private List<GameObject> pooledObjects;
-	
-	void Start () {
-		pooledObjects = new List<GameObject>();
+	public class ObjectPooler : MonoBehaviour
+	{
 
-	    for (int i = 0; i < pooledAmount; i++)
+		public static ObjectPooler Instance;
+
+		public bool mutualizeWaitingPools = true;
+
+		protected GameObject _waitingPool;
+
+	    protected virtual void Awake()
 	    {
-	        GameObject obj = (GameObject) Instantiate(pooledObject[Random.Range(0,2)]);
-	        obj.transform.localScale = new Vector3(Random.Range(.3f, 1.3f), 1, 1);
-            obj.transform.parent = GameObject.Find("Platforms").transform;
-            obj.SetActive(false);
-            pooledObjects.Add(obj);
+			Instance = this;
+			FillObjectPool();
+	    }
+
+		protected virtual void CreateWaitingPool()
+		{
+			if (!mutualizeWaitingPools)
+			{
+				_waitingPool = new GameObject(DetermineObjectPoolName());
+				return;
+			}
+			else
+			{
+				GameObject waitingPool = GameObject.Find (DetermineObjectPoolName ());
+				if (waitingPool != null)
+				{
+					_waitingPool = waitingPool;
+				}
+				else
+				{
+					_waitingPool = new GameObject(DetermineObjectPoolName());
+				}
+			}
+		}
+
+		protected virtual string DetermineObjectPoolName()
+		{
+			return ("[ObjectPooler] " + this.name);	
+		}
+
+
+	    protected virtual void FillObjectPool()
+	    {
+	        return ;
+	    }
+
+
+		public virtual GameObject GetPooledGameObject()
+	    {
+	        return null;
 	    }
 	}
-
-    public GameObject GetPooledObject()
-    {
-        for (int i = 0; i < pooledObjects.Count; i++)
-        {
-            if (!pooledObjects[i].activeInHierarchy)
-            {
-                return pooledObjects[i];        
-            }
-        }
-
-        GameObject obj = (GameObject)Instantiate(pooledObject[Random.Range(0,2)]);
-        obj.transform.localScale = new Vector3(Random.Range(.3f, 1.3f), 1, 1);
-        obj.transform.parent = GameObject.Find("Platforms").transform;
-        obj.SetActive(false);
-        pooledObjects.Add(obj);
-        return obj;
-    }
-
-
-}

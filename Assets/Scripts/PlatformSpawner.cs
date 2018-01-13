@@ -63,18 +63,32 @@ public class PlatformSpawner : MonoBehaviour
 
     public void SpawnPlatforms()
     {
-        
         for (int i = 0; i < numOfPlatforms; i++)
         {
            
-            xPos = Random.Range(-4.5f, 4.5f);
+            xPos = Random.Range(-4.7f, 4.7f);
             Vector2 posXY = new Vector2(xPos, yPos);
 
-            GameObject newPlatform = theObjectPool.GetPooledObject();
-            newPlatform.transform.position = posXY;
-            newPlatform.SetActive(true);
+            GameObject newPlatform = theObjectPool.GetPooledGameObject();
 
-            yPos += Random.Range(1.3f, 1.5f);
+            if (newPlatform != null)
+            {
+                if (newPlatform.transform.localScale.x < 1)
+                {
+                    newPlatform.transform.localScale = new Vector2(1, 1);
+                }
+                else
+                {
+                    newPlatform.transform.localScale = new Vector2(Random.Range(.3f, 1.3f), 1);
+
+                    newPlatform.transform.position = posXY;
+                    newPlatform.SetActive(true);
+                }
+                
+            }
+            
+
+            yPos += Random.Range(1f, 1.3f);
 
         }
     }

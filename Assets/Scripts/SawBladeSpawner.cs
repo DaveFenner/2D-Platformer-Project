@@ -17,7 +17,6 @@ public class SawBladeSpawner : MonoBehaviour
     {
         if (col.tag == "Player" && !sawspawned)
         {
-            Debug.Log("test");
             sawSpawn = gameObject.transform.GetChild(1).position;           
             GameObject sawBlades = Instantiate(sawBlade, sawSpawn, Quaternion.identity);
             sawBlades.transform.parent = GameObject.Find("Obstacles").transform;
