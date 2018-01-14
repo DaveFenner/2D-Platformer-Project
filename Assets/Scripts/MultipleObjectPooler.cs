@@ -2,9 +2,10 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 
-	[Serializable]
+[Serializable]
 	public class MultipleObjectPoolerObject
 	{
 		public GameObject GameObjectToPool;
@@ -77,8 +78,8 @@ using System.Collections.Generic;
 			GameObject newGameObject = (GameObject)Instantiate(typeOfObject);
 			newGameObject.gameObject.SetActive(false);
 			newGameObject.transform.SetParent(_waitingPool.transform);
-			newGameObject.name=typeOfObject.name;
-			_pooledGameObjects.Add(newGameObject);	
+			newGameObject.name=typeOfObject.name;		               
+            _pooledGameObjects.Add(newGameObject);	
 			return newGameObject;
 		}
 

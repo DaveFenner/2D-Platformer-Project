@@ -10,6 +10,8 @@ public class PlatformSpawner : MonoBehaviour
     public Transform leftWallPlatform;
     public Transform rightWallPlatform;
 
+    public PlayerBehaviour pB;
+
     public ObjectPooler theObjectPool;
 
     private Vector3 leftStartPoint = new Vector3(-22f, 4.17f, 0);
@@ -24,6 +26,7 @@ public class PlatformSpawner : MonoBehaviour
     private float yPos;
 
     public float platformCheck;
+    public float wallCheck;
 
     private float playerHeightY;
     public new Transform camera;
@@ -31,7 +34,7 @@ public class PlatformSpawner : MonoBehaviour
 
     void Start ()
     {
-        yPos = 1.5f;
+        yPos = Random.Range(1f, 1.3f);
 
         player = GameObject.FindWithTag("Player").transform;
 
@@ -47,49 +50,43 @@ public class PlatformSpawner : MonoBehaviour
 	
 	void Update ()
 	{
-        playerHeightY = player.position.y;
-	    if (playerHeightY > platformCheck)
+	    playerHeightY = player.position.y;
+
+	    if (playerHeightY > wallCheck)
 	    {
 	        PlatformManager();
-            SpawnNextWall();
+
+        }
+	   
+	    if (playerHeightY > platformCheck)
+	    {
+	        PlatformManager();            
 	    }
 	}
 
     public void PlatformManager()
     {
-        platformCheck = player.position.y + 10;
+        platformCheck = player.position.y + 20;
+        wallCheck = player.position.y + 10;
         SpawnPlatforms();
+        SpawnNextWall();
     }
 
     public void SpawnPlatforms()
     {
         for (int i = 0; i < numOfPlatforms; i++)
         {
-           
+
             xPos = Random.Range(-4.7f, 4.7f);
             Vector2 posXY = new Vector2(xPos, yPos);
 
             GameObject newPlatform = theObjectPool.GetPooledGameObject();
-
-            if (newPlatform != null)
-            {
-                if (newPlatform.transform.localScale.x < 1)
-                {
-                    newPlatform.transform.localScale = new Vector2(1, 1);
-                }
-                else
-                {
-                    newPlatform.transform.localScale = new Vector2(Random.Range(.3f, 1.3f), 1);
-
-                    newPlatform.transform.position = posXY;
-                    newPlatform.SetActive(true);
-                }
-                
-            }
+            newPlatform.transform.position = posXY;
+            ReScale(newPlatform);
+            newPlatform.SetActive(true);
             
-
-            yPos += Random.Range(1f, 1.3f);
-
+                   
+        yPos += Random.Range(1f, 1.3f);
         }
     }
 
@@ -141,9 +138,17 @@ public class PlatformSpawner : MonoBehaviour
         nextWallRotation = nextRightWall.rotation;
     }
 
-    public void CheckColllider()
+    public void ReScale(GameObject obj)
     {
-        
+        if (obj.transform.localScale.x < 1)
+        {
+            obj.transform.localScale  = new Vector2(1, 1);
+            obj.transform.localScale = new Vector2(Random.Range(.3f, 1.3f), 1);
+        }
+        else
+        {
+            obj.transform.localScale = new Vector2(Random.Range(.3f, 1.3f), 1);
+        }
     }
 }
 
