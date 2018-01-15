@@ -14,7 +14,15 @@ public class SawBlade : MonoBehaviour
 	
 	void Update ()
 	{
-	    transform.Translate(Vector2.down * moveSpeed * Time.deltaTime);
+	    transform.parent.Translate(Vector2.down * moveSpeed * Time.deltaTime);
+    }
+
+    public void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Player"))
+        {                         
+                PlayerBehaviour.pB.PlayerDeath();           
+        }
     }
 
 }

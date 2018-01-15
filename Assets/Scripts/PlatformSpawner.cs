@@ -50,7 +50,11 @@ public class PlatformSpawner : MonoBehaviour
 	
 	void Update ()
 	{
-	    playerHeightY = player.position.y;
+	    if (player != null)
+	    {
+	        playerHeightY = player.position.y;
+        }
+	    
 
 	    if (playerHeightY > wallCheck)
 	    {

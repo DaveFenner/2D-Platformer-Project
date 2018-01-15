@@ -82,7 +82,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (canRotate)
         {
-            animator.SetBool("RotatePlayer", true);
+            animator.SetBool("RotatePlayer", true);           
             canRotate = false;
         } else if (!canRotate)
         {
@@ -93,8 +93,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void PlayerDeath()
     {
+        gameObject.GetComponent<Explodable>().explode();
         ScoreKeeper.sK.CheckHighScore();
         ScoreKeeper.sK.EndGame();
-        Time.timeScale = 0f;
+
+       
     }
 }

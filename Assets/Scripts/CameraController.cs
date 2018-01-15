@@ -12,12 +12,16 @@ public class CameraController : MonoBehaviour {
 
     void Update()
     {
-        float interpolation = speed * Time.deltaTime;
+        if (player != null)
+        {
+            float interpolation = speed * Time.deltaTime;
 
-        Vector3 position = transform.position;
-        position.y = Mathf.Lerp(transform.position.y, player.transform.position.y, interpolation);
-        position.x = Mathf.Lerp(transform.position.x, player.transform.position.x, interpolation);
+            Vector3 position = transform.position;
+            position.y = Mathf.Lerp(transform.position.y, player.transform.position.y, interpolation);
+            position.x = Mathf.Lerp(transform.position.x, player.transform.position.x, interpolation);
 
-        transform.position = position;     
+            transform.position = position;
+        }
+           
     }
 }

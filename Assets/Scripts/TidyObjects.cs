@@ -19,7 +19,11 @@ public class TidyObjects : MonoBehaviour
 
     void Update()
     {
-        playerHeightY = player.transform.position.y;
+        if (player != null)
+        {
+            playerHeightY = player.transform.position.y;
+        }
+        
     }
 
     public void OnBecameInvisible()
