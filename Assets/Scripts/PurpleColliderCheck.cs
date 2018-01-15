@@ -5,26 +5,23 @@ using UnityEngine;
 public class PurpleColliderCheck : MonoBehaviour {
 
     public float removeTime = 1f;
+    public Material defaultMaterial;
+    public Material purpleGlowMat;
 
 
     IEnumerator OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "PurplePlatform")
+        if (col.CompareTag("PurpleCollider"))
         {
-            yield return new WaitForSeconds(2);
-            col.gameObject.transform.parent.gameObject.SetActive(false);
-        }
-        else if (col.tag == "LeftSideWall" || col.tag == "RightSideWall")
-        {
+            gameObject.GetComponentInParent<SpriteRenderer>().material = purpleGlowMat;
+            yield return new WaitForSeconds(removeTime);
+            gameObject.GetComponentInParent<SpriteRenderer>().material = defaultMaterial;
+            gameObject.transform.parent.gameObject.SetActive(false);
 
         }
-        else if (col.tag == "SawBlade")
+        else if (col.CompareTag("BlueCollider"))
         {
             PlayerBehaviour.pB.PlayerDeath();
         }
-        else
-        {
-            PlayerBehaviour.pB.PlayerDeath();
-        }
-     }
     }
+}
