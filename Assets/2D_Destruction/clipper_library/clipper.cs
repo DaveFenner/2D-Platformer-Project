@@ -50,6 +50,8 @@
 
 //use_deprecated: Enables support for the obsolete OffsetPaths() function
 //which has been replace with the ClipperOffset class.
+
+#pragma warning disable 0219 // variable assigned but not used.
 #define use_deprecated
 
 

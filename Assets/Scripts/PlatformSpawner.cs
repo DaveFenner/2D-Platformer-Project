@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Assertions.Comparers;
+using Random = UnityEngine.Random;
 
 public class PlatformSpawner : MonoBehaviour
 {
@@ -85,45 +87,18 @@ public class PlatformSpawner : MonoBehaviour
             Vector2 posXY = new Vector2(xPos, yPos);
 
             GameObject newPlatform = theObjectPool.GetPooledGameObject();
-            newPlatform.transform.position = posXY;
-            ReScale(newPlatform);
-            newPlatform.SetActive(true);
+            if (newPlatform != null)
+            {              
+                newPlatform.transform.position = posXY;
+                ReScale(newPlatform);
+                newPlatform.SetActive(true);
+            }
+            
             
                    
         yPos += Random.Range(1f, 1.3f);
         }
     }
-
-
-    /*public void SpawnPlatforms(float floatValue)
-    {       
-            
-            while (yPos <= floatValue)
-            {
-                xPos = Random.Range(-4.5f, 4.5f);
-                Vector2 posXY = new Vector2(xPos, yPos);
-
-                GameObject regularPlatforms = Instantiate(platforms[Random.Range(0, 2)], posXY, Quaternion.identity);
-                
-
-                regularPlatforms.transform.parent = GameObject.Find("Platforms").transform;
-                regularPlatforms.transform.localScale = new Vector3(Random.Range(.3f, 1f), 1, 1);               
-                yPos += Random.Range(1.2f, 1.75f);
-                for (int i = 0; i < numOfPlatforms ; i++)
-                    {
-                    xPos = Random.Range(-4.5f, 4.5f);
-                    Vector2 posXY = new Vector2(xPos, yPos);
-                    GameObject platformInstatiated = Instantiate(platforms[Random.Range(0, 2)], posXY, Quaternion.identity);
-
-                    platformInstatiated.transform.parent = GameObject.Find("Platforms").transform;
-                    platformInstatiated.transform.localScale = new Vector3(Random.Range(.3f, 1f), 1, 1);
-                    yPos += Random.Range(1.2f, 1.75f);
-                    loopedGameObject.Add(platformInstatiated);                  
-                    }                          
-            }
-
-        spawnPlatformsTo = floatValue;
-    }*/
 
     public void SpawnNextWall()
     {
