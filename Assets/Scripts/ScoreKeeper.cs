@@ -14,14 +14,11 @@ public class ScoreKeeper : MonoBehaviour
 
     public GameObject playAgainButton;
 
-    //private GameObject player;
-
     private int highScore;
     public GameObject highScoreLine;
 
     void Start ()
     { 
-        //player = GameObject.Find("Player").transform.gameObject;
         sK = this;
         score = 0;
         highScore = PlayerPrefs.GetInt("HighScore", 0);
