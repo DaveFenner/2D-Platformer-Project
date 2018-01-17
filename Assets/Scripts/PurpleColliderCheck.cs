@@ -7,6 +7,7 @@ public class PurpleColliderCheck : MonoBehaviour {
     public float removeTime = 1f;
     public Material defaultMaterial;
     public Material purpleGlowMat;
+    public Material redGlowMat;
 
 
     IEnumerator OnTriggerEnter2D(Collider2D col)
@@ -21,6 +22,7 @@ public class PurpleColliderCheck : MonoBehaviour {
         }
         else if (col.CompareTag("BlueCollider"))
         {
+            gameObject.GetComponentInParent<SpriteRenderer>().material = redGlowMat;
             PlayerBehaviour.pB.PlayerDeath();
         }
     }
