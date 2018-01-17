@@ -12,7 +12,7 @@ public class PlatformSpawner : MonoBehaviour
     public Transform leftWallPlatform;
     public Transform rightWallPlatform;
 
-    public PlayerBehaviour pB;
+    private PlayerBehaviour pB;
 
     public ObjectPooler theObjectPool;
 
@@ -23,12 +23,12 @@ public class PlatformSpawner : MonoBehaviour
     private Vector3 nextRightWallLocation;
     private Quaternion nextWallRotation;
 
-    public float numOfPlatforms = 17;
+    public float numOfPlatforms = 20;
     private float xPos;
     private float yPos;
 
-    public float platformCheck;
-    public float wallCheck;
+    private float platformCheck;
+    private float wallCheck;
 
     private float playerHeightY;
     public new Transform camera;

@@ -16,7 +16,7 @@ public class ScoreKeeper : MonoBehaviour
 
     //private GameObject player;
 
-    public int highScore;
+    private int highScore;
     public GameObject highScoreLine;
 
     void Start ()
@@ -24,7 +24,7 @@ public class ScoreKeeper : MonoBehaviour
         //player = GameObject.Find("Player").transform.gameObject;
         sK = this;
         score = 0;
-        highScore = PlayerPrefs.GetInt("HighScore1", 0);
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
         if (highScore > 0)
         {
             Instantiate(highScoreLine, new Vector2(0, (float)highScore), Quaternion.identity);
@@ -41,7 +41,7 @@ public class ScoreKeeper : MonoBehaviour
     {
         if (score > highScore)
         {
-            PlayerPrefs.SetInt("HighScore1", score);          
+            PlayerPrefs.SetInt("HighScore", score);          
         }
     }
 
