@@ -6,12 +6,14 @@ public class CameraController : MonoBehaviour {
 
 
     public GameObject player;
+    public Color32 lerpedColor = new Color32(72,67,73,255);
 
 
     public float speed = 2.0f;
 
     void Update()
     {
+        
         if (player != null)
         {
             float interpolation = speed * Time.deltaTime;
@@ -22,6 +24,6 @@ public class CameraController : MonoBehaviour {
 
             transform.position = position;
         }
-           
+        Camera.main.backgroundColor = lerpedColor;
     }
 }

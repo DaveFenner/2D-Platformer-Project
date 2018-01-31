@@ -88,15 +88,26 @@ public class PlatformSpawner : MonoBehaviour
 
             GameObject newPlatform = theObjectPool.GetPooledGameObject();
             if (newPlatform != null)
-            {              
-                newPlatform.transform.position = posXY;
-                ReScale(newPlatform);
-                newPlatform.SetActive(true);
+            {
+                if (newPlatform.CompareTag("PowerUp"))
+                {                                                     
+                        newPlatform.transform.position = posXY;
+                        newPlatform.SetActive(true);
+                        
+
+                }
+                else
+                {
+                    newPlatform.transform.position = posXY;
+                    ReScale(newPlatform);
+                    newPlatform.SetActive(true);
+                }
+                
             }
             
             
                    
-        yPos += Random.Range(1f, 1.3f);
+        yPos += Random.Range(1f, 1.2f);
         }
     }
 

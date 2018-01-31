@@ -24,6 +24,6 @@ public class PurpleColliderCheck : MonoBehaviour {
         {
             gameObject.GetComponentInParent<SpriteRenderer>().material = redGlowMat;
             PlayerBehaviour.pB.PlayerDeath();
-        }
+        } 
     }
 }

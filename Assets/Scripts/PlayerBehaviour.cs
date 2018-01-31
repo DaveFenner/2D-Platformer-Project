@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 public class PlayerBehaviour : MonoBehaviour
 {
     public static PlayerBehaviour pB;
+    public SmallPowerUp powerUp;
+
+    public AudioSource audioSource;
+    public AudioClip jumpSound;
+    public AudioClip deathSound;
+    public AudioClip rotateSound;
+    public float volume;
 
     public Rigidbody2D rb;
     private Animator animator;
@@ -47,18 +54,22 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 rb.AddForce(Vector2.up * jumpPower);
                 canDoubleJump = true;
+                
+                audioSource.PlayOneShot(jumpSound, 0.1f);
                 Rotate();
             }
             else
             {
                 if (canDoubleJump)
                 {
+                    audioSource.PlayOneShot(rotateSound);
                     canDoubleJump = false;
                     rb.velocity = new Vector2(rb.velocity.x, 0);
                     rb.AddForce(Vector2.up * jumpPower);
                     Rotate();
                 }else if (!canDoubleJump)
-                {                  
+                {
+                    audioSource.PlayOneShot(rotateSound);
                     Rotate();
                 }
             }
@@ -82,10 +93,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (canRotate)
         {
+            
             animator.SetBool("RotatePlayer", true);           
             canRotate = false;
         } else if (!canRotate)
         {
+            
             animator.SetBool("RotatePlayer", false);
             canRotate = true;
         }
@@ -96,7 +109,7 @@ public class PlayerBehaviour : MonoBehaviour
         gameObject.GetComponent<Explodable>().explode();
         ScoreKeeper.sK.CheckHighScore();
         ScoreKeeper.sK.EndGame();
-
-       
+        audioSource.PlayOneShot(deathSound, 16f);     
     }
+
 }

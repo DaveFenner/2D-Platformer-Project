@@ -15,13 +15,20 @@ public class GroundCheck : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        player.grounded = true;
+        if (col.CompareTag("LeftSideWall") || col.CompareTag("RightSideWall"))
+        {
+            player.grounded = true;
+        }
+        else
+        {
+            player.grounded = true;
+        }
+        
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-       
-        player.grounded = false;
+            player.grounded = false;              
     }
 
     
