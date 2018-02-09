@@ -83,7 +83,7 @@ public class PlatformSpawner : MonoBehaviour
         for (int i = 0; i < numOfPlatforms; i++)
         {
 
-            xPos = Random.Range(-4.7f, 4.7f);
+            xPos = Random.Range(-4.5f, 4.5f);
             Vector2 posXY = new Vector2(xPos, yPos);
 
             GameObject newPlatform = theObjectPool.GetPooledGameObject();
@@ -93,8 +93,6 @@ public class PlatformSpawner : MonoBehaviour
                 {                                                     
                         newPlatform.transform.position = posXY;
                         newPlatform.SetActive(true);
-                        
-
                 }
                 else
                 {
@@ -107,7 +105,7 @@ public class PlatformSpawner : MonoBehaviour
             
             
                    
-        yPos += Random.Range(1f, 1.2f);
+        yPos += Random.Range(1f, 1.4f);
         }
     }
 

@@ -18,7 +18,8 @@ public class ScoreKeeper : MonoBehaviour
     public GameObject highScoreLine;
 
     void Start ()
-    { 
+    {
+        
         sK = this;
         score = 0;
         highScore = PlayerPrefs.GetInt("HighScore", 0);

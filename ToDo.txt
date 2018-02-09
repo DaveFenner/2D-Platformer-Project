@@ -1,0 +1,6 @@
+- Fix platforms spawning in walls
+- Do real menu, and game over screen
+- Add either second chance, or power up if you watch an ad
+- Implement ads
+- Play test
+- Change the way saw blades work

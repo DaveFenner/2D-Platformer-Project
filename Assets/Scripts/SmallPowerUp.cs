@@ -34,9 +34,12 @@ public class SmallPowerUp : MonoBehaviour
             player.transform.localScale = new Vector2(0.10625f, 0.5f);
             player.jumpPower = 500;
             yield return new WaitForSeconds(5);
-            player.transform.localScale = new Vector2(0.2124999f, 1f);
-            player.jumpPower = 300;
-            Destroy(this);
+            if (player != null)
+            {
+                player.transform.localScale = new Vector2(0.2124999f, 1f);
+                player.jumpPower = 350;
+            }
+            this.gameObject.SetActive(false);
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class TidyObjects : MonoBehaviour
 {
 
-    private float removeTime = 10f;
+    private float removeTime = 15f;
 
     private GameObject player;
 
@@ -29,8 +29,10 @@ public class TidyObjects : MonoBehaviour
     {
         if (gameObject.transform.position.y > playerHeightY)
         {
+            return;
         }
-        else if (gameObject.CompareTag("LeftSideWall"))
+
+        if (gameObject.CompareTag("LeftSideWall"))
         {
             Destroy(gameObject,removeTime);
         }

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerBehaviour : MonoBehaviour
 {
     public static PlayerBehaviour pB;
     public SmallPowerUp powerUp;
+    public CameraController camController;
 
     public AudioSource audioSource;
     public AudioClip jumpSound;
@@ -25,6 +27,8 @@ public class PlayerBehaviour : MonoBehaviour
     bool canDoubleJump;
 
     bool canRotate = true;
+    private float move;
+    private float move2;
 
     public float playerHeightY;
 
@@ -40,22 +44,54 @@ public class PlayerBehaviour : MonoBehaviour
 	    animator = transform.GetComponent<Animator>();
 	}
 
-
     void Update()
     {
-
-        float move = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(move * speed, rb.velocity.y);
         currentCameraHeight = camera.transform.position.y;
         playerHeightY = player.position.y;
+
+        move = CrossPlatformInputManager.GetAxis("Horizontal");
+         move2 = Input.GetAxis("Horizontal");
+        
+
+        if (CrossPlatformInputManager.GetButtonDown("Jump"))
+        {
+            Jump();
+        }
+
+        if (playerHeightY < (currentCameraHeight - 4.5f))
+        {
+            PlayerDeath();
+        }
+
+        if (playerHeightY > ScoreKeeper.score)
+        {
+            ScoreKeeper.score = (int)playerHeightY;
+        }
+    }
+
+
+    void FixedUpdate()
+    {       
+        rb.velocity = new Vector2(move * speed, rb.velocity.y);
+        rb.velocity = new Vector2(move2 * speed, rb.velocity.y);
+
         if (Input.GetButtonDown("Jump"))
         {
+            Jump();
+
+        }
+
+        
+    }
+
+    void Jump()
+    {      
             if (grounded)
             {
                 rb.AddForce(Vector2.up * jumpPower);
                 canDoubleJump = true;
-                
-                audioSource.PlayOneShot(jumpSound, 0.1f);
+
+                audioSource.PlayOneShot(rotateSound);
                 Rotate();
             }
             else
@@ -67,27 +103,15 @@ public class PlayerBehaviour : MonoBehaviour
                     rb.velocity = new Vector2(rb.velocity.x, 0);
                     rb.AddForce(Vector2.up * jumpPower);
                     Rotate();
-                }else if (!canDoubleJump)
+                }
+                else if (!canDoubleJump)
                 {
                     audioSource.PlayOneShot(rotateSound);
                     Rotate();
                 }
             }
-
         }
-
-        if (playerHeightY < (currentCameraHeight - 4f))
-        {
-            PlayerDeath();
-        }
-
-        if (playerHeightY > ScoreKeeper.score)
-        {
-            ScoreKeeper.score = (int) playerHeightY;
-        }
-    }
-
- 
+    
 
     void Rotate()
     {

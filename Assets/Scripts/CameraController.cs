@@ -2,28 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour
+{
 
 
     public GameObject player;
-    public Color32 lerpedColor = new Color32(72,67,73,255);
+    public bool passed = false;
+
 
 
     public float speed = 2.0f;
 
+
+    void Start()
+    {
+        Vector3 posStart = transform.position;
+        posStart.y = transform.position.y - -4f;
+        transform.position = posStart;
+    }
+
+
+
     void Update()
     {
-        
         if (player != null)
         {
-            float interpolation = speed * Time.deltaTime;
+            if (player.transform.position.y > 4f)
+            {
+                {
+                    float interpolation = speed * Time.deltaTime;
 
-            Vector3 position = transform.position;
-            position.y = Mathf.Lerp(transform.position.y, player.transform.position.y, interpolation);
-            position.x = Mathf.Lerp(transform.position.x, player.transform.position.x, interpolation);
+                    Vector3 position = transform.position;
+                    position.y = Mathf.Lerp(transform.position.y, player.transform.position.y, interpolation);
+                    
+                    transform.position = position;
+                    passed = true;
+                }
 
-            transform.position = position;
+            }
         }
-        Camera.main.backgroundColor = lerpedColor;
     }
 }
+
+    
+
